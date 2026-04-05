@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit IV – Aerodynamics, Electric Vehicles & Jet Propulsion | Interactive Notes</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1a73e8;
+      --accent:  #e8710a;
+      --green:   #1e8e3e;
+      --purple:  #7b2d8b;
+      --red:     #d93025;
+      --bg:      #f8f9fa;
+      --card:    #ffffff;
+      --border:  #dadce0;
+      --text:    #202124;
+      --muted:   #5f6368;
+      --shadow:  0 1px 4px rgba(0,0,0,.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Top Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--primary); color: #fff;
+      padding: 0 1.5rem; display: flex; align-items: center;
+      gap: 1rem; flex-wrap: wrap; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    }
+    nav .brand { font-size: 1.1rem; font-weight: 700; padding: .6rem 0; white-space: nowrap; }
+    nav a {
+      color: #fff; text-decoration: none; font-size: .85rem;
+      padding: .6rem .4rem; opacity: .85; transition: opacity .2s;
+    }
+    nav a:hover { opacity: 1; text-decoration: underline; }
+
+    /* ── Layout ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+
+    /* ── Hero Banner ── */
+    .hero {
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+      color: #fff; border-radius: 12px; padding: 2.5rem 2rem;
+      margin-bottom: 2rem; text-align: center;
+    }
+    .hero h1 { font-size: 2rem; margin-bottom: .5rem; }
+    .hero p  { font-size: 1rem; opacity: .9; }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,.2);
+      border-radius: 20px; padding: .2rem .8rem;
+      font-size: .8rem; margin: .3rem .2rem;
+    }
+
+    /* ── Section Headings ── */
+    .section-title {
+      font-size: 1.5rem; font-weight: 700; color: var(--primary);
+      border-bottom: 3px solid var(--primary); padding-bottom: .4rem;
+      margin: 2rem 0 1rem;
+    }
+    .subsection-title {
+      font-size: 1.15rem; font-weight: 600; color: var(--accent);
+      margin: 1.4rem 0 .5rem;
+    }
+    h4 { font-size: 1rem; font-weight: 600; margin: 1rem 0 .3rem; color: var(--purple); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.2rem 1.4rem;
+      margin: .8rem 0; box-shadow: var(--shadow);
+    }
+
+    /* ── Collapsible ── */
+    details { margin: .6rem 0; }
+    summary {
+      cursor: pointer; background: #e8f0fe; border-radius: 8px;
+      padding: .7rem 1rem; font-weight: 600; color: var(--primary);
+      list-style: none; display: flex; justify-content: space-between;
+      align-items: center; user-select: none;
+    }
+    summary::after { content: '▼'; font-size: .75rem; }
+    details[open] summary::after { content: '▲'; }
+    details[open] summary { border-radius: 8px 8px 0 0; }
+    .details-body {
+      border: 1px solid #c5d8ff; border-top: none;
+      border-radius: 0 0 8px 8px; padding: 1rem 1.2rem;
+      background: #fff;
+    }
+
+    /* ── Lists ── */
+    ul, ol { padding-left: 1.5rem; }
+    li { margin: .3rem 0; }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; margin: .8rem 0; }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th {
+      background: var(--primary); color: #fff;
+      padding: .6rem .9rem; text-align: left;
+    }
+    td { padding: .55rem .9rem; border-bottom: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #f1f5ff; }
+    tr:hover td { background: #e4edff; }
+
+    /* ── Callouts ── */
+    .key-takeaway {
+      background: #e6f4ea; border-left: 5px solid var(--green);
+      border-radius: 6px; padding: .9rem 1.1rem; margin: 1rem 0;
+    }
+    .key-takeaway::before { content: '✅ Key Takeaways'; display: block; font-weight: 700; color: var(--green); margin-bottom: .4rem; }
+
+    .mnemonic {
+      background: #fce8e6; border-left: 5px solid var(--red);
+      border-radius: 6px; padding: .9rem 1.1rem; margin: 1rem 0;
+    }
+    .mnemonic::before { content: '🧠 Mnemonic / Analogy'; display: block; font-weight: 700; color: var(--red); margin-bottom: .4rem; }
+
+    .hinglish {
+      background: #fff3e0; border-left: 5px solid var(--accent);
+      border-radius: 6px; padding: .9rem 1.1rem; margin: 1rem 0;
+      font-style: italic;
+    }
+    .hinglish::before { content: '🗣️ Hinglish / Urdu Summary'; display: block; font-weight: 700; color: var(--accent); margin-bottom: .4rem; font-style: normal; }
+
+    .info-box {
+      background: #e8f0fe; border-left: 5px solid var(--primary);
+      border-radius: 6px; padding: .9rem 1.1rem; margin: 1rem 0;
+    }
+
+    /* ── Diagram / ASCII ── */
+    .diagram {
+      font-family: 'Courier New', monospace; background: #1e1e2e;
+      color: #a6e22e; padding: 1rem 1.2rem; border-radius: 8px;
+      white-space: pre; overflow-x: auto; font-size: .82rem;
+      margin: .8rem 0; line-height: 1.5;
+    }
+
+    /* ── Quiz / Flashcard ── */
+    .quiz-section {
+      background: #f3e5f5; border: 1px solid #ce93d8;
+      border-radius: 10px; padding: 1.2rem 1.4rem; margin: 1.2rem 0;
+    }
+    .quiz-section h3 { color: var(--purple); margin-bottom: .8rem; }
+    .quiz-q { margin: .6rem 0; font-weight: 600; }
+    .quiz-opts label {
+      display: block; margin: .25rem 0; padding: .35rem .7rem;
+      border-radius: 6px; cursor: pointer; transition: background .2s;
+    }
+    .quiz-opts label:hover { background: #e1bee7; }
+    .quiz-opts input[type=radio] { margin-right: .5rem; }
+    .quiz-check {
+      margin-top: .8rem; padding: .4rem .9rem;
+      background: var(--purple); color: #fff; border: none;
+      border-radius: 6px; cursor: pointer; font-size: .9rem;
+    }
+    .quiz-check:hover { background: #6a1b9a; }
+    .quiz-result { margin-top: .6rem; font-weight: 600; }
+
+    .flashcard-wrap { display: flex; flex-wrap: wrap; gap: .8rem; margin: .8rem 0; }
+    .flashcard {
+      perspective: 600px; width: 220px; height: 130px; cursor: pointer;
+    }
+    .flashcard-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d; transition: transform .5s;
+    }
+    .flashcard:hover .flashcard-inner,
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-front, .flashcard-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: .7rem; font-size: .85rem;
+      box-shadow: var(--shadow);
+    }
+    .flashcard-front { background: var(--primary); color: #fff; font-weight: 600; }
+    .flashcard-back  { background: #fff; color: var(--text); transform: rotateY(180deg); border: 2px solid var(--primary); }
+
+    /* ── Inline badges ── */
+    .tag {
+      display: inline-block; border-radius: 4px; padding: .1rem .5rem;
+      font-size: .78rem; font-weight: 600; margin: .1rem;
+    }
+    .tag-blue   { background: #d2e3fc; color: #1a73e8; }
+    .tag-green  { background: #ceead6; color: #137333; }
+    .tag-orange { background: #fce8b2; color: #b05e00; }
+    .tag-red    { background: #fce8e6; color: #c62828; }
+    .tag-purple { background: #f3e5f5; color: #7b2d8b; }
+
+    /* ── Quick Revision Sheet ── */
+    .revision-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+      gap: 1rem; margin: 1rem 0;
+    }
+    .revision-card {
+      background: var(--card); border-radius: 10px; padding: 1rem 1.2rem;
+      border-top: 4px solid var(--primary); box-shadow: var(--shadow);
+    }
+    .revision-card h4 { color: var(--primary); margin-bottom: .5rem; }
+
+    /* ── Progress Bar (decorative) ── */
+    .progress-bar-wrap { background: #e0e0e0; border-radius: 20px; height: 8px; margin: .4rem 0; }
+    .progress-bar { height: 100%; border-radius: 20px; background: var(--green); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.4rem; }
+      nav { font-size: .8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <span class="brand">✈️ Unit IV Notes</span>
+  <a href="#aerodynamics">Aerodynamics</a>
+  <a href="#electric-vehicles">Electric Vehicles</a>
+  <a href="#jet-propulsion">Jet Propulsion</a>
+  <a href="#turbojet">Turbojet Engines</a>
+  <a href="#qbank">Question Bank</a>
+  <a href="#revision">Quick Revision</a>
+</nav>
+
+<div class="container">
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <div class="hero">
+    <h1>✈️ Unit IV – Comprehensive Interactive Notes</h1>
+    <p>Aerodynamics &bull; Electric Vehicles &bull; Jet Propulsion &bull; Turbojet Engines</p>
+    <div style="margin-top:1rem;">
+      <span class="badge">CO-4</span>
+      <span class="badge">Mechanical Engineering</span>
+      <span class="badge">Exam Ready</span>
+      <span class="badge">Interactive</span>
+    </div>
+    <p style="margin-top:1.2rem; font-size:.9rem; opacity:.8;">
+      Click <strong>▼ sections</strong> to expand &nbsp;|&nbsp;
+      Hover flashcards to reveal answers &nbsp;|&nbsp;
+      Use nav links to jump to topics
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 1 – AERODYNAMICS
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="aerodynamics">🌬️ 1. Aerodynamics</h2>
+
+  <!-- 1.1 Introduction -->
+  <details open>
+    <summary>1.1 Introduction &amp; Definition</summary>
+    <div class="details-body">
+      <p>
+        <strong>Aerodynamics</strong> is a sub-field of <em>fluid dynamics</em> and <em>gas dynamics</em>.
+        The term is often used synonymously with <strong>gas dynamics</strong> — the difference being that gas dynamics applies to <em>all</em> gases, not just air.
+      </p>
+      <ul>
+        <li>Aerodynamics is primarily concerned with the forces of <span class="tag tag-blue">Drag</span> and <span class="tag tag-green">Lift</span>.</li>
+        <li>Engineers apply aerodynamic principles to aircraft, automobiles, buildings, bridges, and even soccer balls.</li>
+        <li>The science of building and operating an aircraft is called <strong>Aeronautics</strong>.</li>
+        <li>Aerodynamics explains how an airplane is able to fly.</li>
+        <li>Anything that moves through air is affected by aerodynamics — from rockets to kites to cars.</li>
+      </ul>
+      <div class="mnemonic">
+        <strong>ADAG</strong> – Aerodynamics is About Drag And lift (plus thrust &amp; Gravity/weight). Think of a plane: it needs <em>more lift than weight</em> and <em>more thrust than drag</em>.
+      </div>
+    </div>
+  </details>
+
+  <!-- 1.2 Four Forces of Flight -->
+  <details>
+    <summary>1.2 The Four Forces of Flight</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Force</th><th>Direction</th><th>Opposes</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Lift</strong></td><td>Upward ↑</td><td>Weight</td><td>Generated by wings; wings are curved on top, flatter on bottom → lower pressure on top → upward push</td></tr>
+            <tr><td><strong>Weight</strong></td><td>Downward ↓</td><td>Lift</td><td>Force of gravity × mass of object</td></tr>
+            <tr><td><strong>Thrust</strong></td><td>Forward →</td><td>Drag</td><td>Force pushing the aircraft forward (propeller, jet engine)</td></tr>
+            <tr><td><strong>Drag</strong></td><td>Backward ←</td><td>Thrust</td><td>Resistance force; round &amp; narrow surfaces = less drag</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="diagram">
+                    LIFT ↑
+                     │
+   DRAG ←──── ✈️ AIRCRAFT ────→ THRUST
+                     │
+                  WEIGHT ↓
+
+   Fly condition: LIFT > WEIGHT  &amp;&amp;  THRUST > DRAG</div>
+
+      <h4>How Wings Provide Lift (Bernoulli's Principle)</h4>
+      <ul>
+        <li>Wings are <strong>curved on top, flatter on bottom</strong> (aerofoil shape).</li>
+        <li>Air flows <em>faster</em> over the curved top → <em>lower pressure</em> on top.</li>
+        <li>Higher pressure below pushes the wing upward → <strong>LIFT</strong>.</li>
+        <li>Same principle applies to helicopter rotor blades, kites, and sailboat sails.</li>
+      </ul>
+      <div class="hinglish">
+        Lift ka funda simple hai: Curved upar wali surface pe hawa zyada fast chalti hai, pressure kam hota hai. Neeche se zyada pressure push karta hai upar — bas airplane ud jaata hai! Yahi kaam helicopter, kite aur sailboat mein bhi hota hai.
+      </div>
+      <div class="key-takeaway">
+        <ul>
+          <li>For flight: <strong>Lift &gt; Weight</strong> and <strong>Thrust &gt; Drag</strong>.</li>
+          <li>Curved wing shape → differential air speed → pressure difference → lift.</li>
+          <li>Round/narrow surfaces have <em>less</em> drag than flat/wide ones.</li>
+          <li>A glider has no thrust — it slows and lands as drag acts on it.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- 1.3 Internal vs External -->
+  <details>
+    <summary>1.3 Internal vs. External Aerodynamics</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Aspect</th><th>External Aerodynamics</th><th>Internal Aerodynamics</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Definition</strong></td><td>Prediction of forces, moments, and heat transfer on bodies <em>moving through</em> a fluid</td><td>Determination of flows moving <em>internally</em> through ducts</td></tr>
+            <tr><td><strong>Examples</strong></td><td>Aircraft wings, car body, bridge structures</td><td>Engine ducts, HVAC pipes, automotive engine passages</td></tr>
+            <tr><td><strong>Focus</strong></td><td>Lift, drag, aerodynamic heating</td><td>Flow patterns inside passages affecting performance</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 1.4 Applications -->
+  <details>
+    <summary>1.4 Aerodynamics in Different Fields</summary>
+    <div class="details-body">
+      <ul>
+        <li><span class="tag tag-blue">Aviation</span> Design of aircraft wings, fuselages, and control surfaces</li>
+        <li><span class="tag tag-orange">Automotive</span> Reducing drag on cars, trucks, and racing vehicles</li>
+        <li><span class="tag tag-green">Civil Engineering</span> Wind loads on skyscrapers and bridges (aero-elasticity)</li>
+        <li><span class="tag tag-purple">Sports</span> Soccer balls, golf balls, cycling helmets</li>
+        <li><span class="tag tag-red">Environment</span> Urban microclimates, atmospheric circulation (environmental aerodynamics)</li>
+        <li><span class="tag tag-blue">Marine</span> Prediction of forces on sailing vessels</li>
+        <li><span class="tag tag-orange">Mechanical</span> Hard drive heads, heating/ventilation systems</li>
+        <li><span class="tag tag-green">Energy</span> Wind turbine blade design</li>
+      </ul>
+      <div class="info-box">
+        <strong>Urban Aerodynamics</strong> helps town planners improve outdoor comfort, create urban microclimates, and reduce pollution effects.
+      </div>
+    </div>
+  </details>
+
+  <!-- 1.5 Aerofoil -->
+  <details>
+    <summary>1.5 Basic Geometry of an Aerofoil</summary>
+    <div class="details-body">
+      <div class="diagram">
+  Leading Edge ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━● Trailing Edge
+              (max curvature front)     (max curvature rear)
+                        ←──── Chord Line ────→
+                          (chord length = c)
+
+  Cross-section (aerofoil profile):
+        ╭─────────────────────────────╮
+       ╱  Camber Line (mean line)      ╲
+  ────●──────────────────────────────────●────
+       ╲ (flatter lower surface)       ╱
+        ╰─────────────────────────────╯</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Leading Edge</strong></td><td>Front point of maximum curvature at the front of the aerofoil</td></tr>
+            <tr><td><strong>Trailing Edge</strong></td><td>Point of maximum curvature at the rear of the aerofoil</td></tr>
+            <tr><td><strong>Chord Line</strong></td><td>Straight line connecting leading and trailing edges</td></tr>
+            <tr><td><strong>Chord Length (c)</strong></td><td>Length of the chord line — the characteristic dimension of the aerofoil section</td></tr>
+            <tr><td><strong>Camber</strong></td><td>Curvature of the aerofoil — more camber → more lift</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-takeaway">
+        <ul>
+          <li>The aerofoil shape directly influences the <strong>magnitude of lift and drag</strong>.</li>
+          <li>Used in aircraft wings, helicopter rotor blades, and wind turbine blades.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- Quiz 1 -->
+  <div class="quiz-section" id="quiz1">
+    <h3>📝 Quiz: Aerodynamics</h3>
+
+    <div class="quiz-q">Q1. Which force directly opposes Lift?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q1" value="a"> Drag</label>
+      <label><input type="radio" name="q1" value="b"> Thrust</label>
+      <label><input type="radio" name="q1" value="c"> Weight</label>
+      <label><input type="radio" name="q1" value="d"> Friction</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q2. What is the chord line of an aerofoil?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q2" value="a"> The curved upper surface</label>
+      <label><input type="radio" name="q2" value="b"> A straight line from leading to trailing edge</label>
+      <label><input type="radio" name="q2" value="c"> The line of maximum thickness</label>
+      <label><input type="radio" name="q2" value="d"> The camber line</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q3. A glider has no thrust. What eventually happens to it?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q3" value="a"> It accelerates forever</label>
+      <label><input type="radio" name="q3" value="b"> Drag slows it down and it lands</label>
+      <label><input type="radio" name="q3" value="c"> Lift keeps it airborne indefinitely</label>
+      <label><input type="radio" name="q3" value="d"> Weight becomes zero</label>
+    </div>
+
+    <button class="quiz-check" onclick="checkQuiz('quiz1', {q1:'c',q2:'b',q3:'b'})">Check Answers</button>
+    <div class="quiz-result" id="quiz1-result"></div>
+  </div>
+
+  <!-- Flashcards 1 -->
+  <div style="margin:1rem 0;">
+    <strong>🃏 Flashcards – Aerodynamics (hover to reveal)</strong>
+    <div class="flashcard-wrap">
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What creates Lift in an aircraft wing?</div>
+          <div class="flashcard-back">Curved top surface → faster airflow → lower pressure on top → wing pushed upward</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Define: External Aerodynamics</div>
+          <div class="flashcard-back">Study of forces &amp; heat transfer on bodies <em>moving through</em> a fluid (e.g., aircraft)</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the chord length of an aerofoil?</div>
+          <div class="flashcard-back">Length of the straight line connecting leading edge to trailing edge — the characteristic dimension</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Four forces of flight</div>
+          <div class="flashcard-back">Lift ↑, Weight ↓, Thrust →, Drag ←</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 2 – ELECTRIC VEHICLES
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="electric-vehicles">⚡ 2. Electric Vehicles (EVs)</h2>
+
+  <!-- 2.1 Introduction -->
+  <details open>
+    <summary>2.1 Introduction &amp; History</summary>
+    <div class="details-body">
+      <p>
+        Electric vehicles (EVs) represent a significant shift from traditional internal combustion engines (ICEs) toward <strong>electric propulsion systems</strong>.
+        EVs use electricity stored in <em>rechargeable batteries</em> to power electric motors.
+      </p>
+      <h4>Historical Context</h4>
+      <ul>
+        <li>EVs predate gasoline-powered vehicles (early 19th century).</li>
+        <li>Limitations in battery technology &amp; cheap fossil fuels led to ICE dominance throughout the 20th century.</li>
+        <li>21st-century resurgence driven by:</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Driver</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td>Battery Technology</td><td>Price per kWh fallen by &gt;80% in last decade</td></tr>
+            <tr><td>Environmental Concerns</td><td>Carbon emissions, air quality</td></tr>
+            <tr><td>Government Incentives</td><td>Tax credits, rebates, regulations</td></tr>
+            <tr><td>Charging Infrastructure</td><td>Widespread fast-charging networks</td></tr>
+            <tr><td>Consumer Demand</td><td>Sustainable &amp; tech-forward transportation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 2.2 Architecture -->
+  <details>
+    <summary>2.2 Architecture of an Electric Vehicle</summary>
+    <div class="details-body">
+      <div class="diagram">
+  EV ARCHITECTURE OVERVIEW
+  ┌─────────────────────────────────────────────────────────────┐
+  │                                                             │
+  │  [Charging Port] → [Onboard Charger] → [Battery Pack]      │
+  │                                              │              │
+  │                                         [BMS / Thermal]     │
+  │                                              │              │
+  │                                       [Power Electronics]  │
+  │                              ┌───────────────┤             │
+  │                         [Inverter]     [DC Converter]      │
+  │                              │               │             │
+  │                        [Electric Motor]  [Aux Systems]     │
+  │                              │                             │
+  │                       [Transmission]                       │
+  │                              │                             │
+  │                           [Wheels]                         │
+  │                              │                             │
+  │          [Regenerative Braking] ←────── (Deceleration)    │
+  └─────────────────────────────────────────────────────────────┘</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Component</th><th>Function</th><th>Key Fact</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Battery Pack</strong></td><td>Energy storage (Li-ion modules)</td><td>25–40% of vehicle cost; determines range</td></tr>
+            <tr><td><strong>Electric Motor(s)</strong></td><td>Converts electrical → mechanical energy</td><td>Types: PMSM, Induction, Switched Reluctance</td></tr>
+            <tr><td><strong>Inverter</strong></td><td>DC (battery) → AC (motor)</td><td>Part of power electronics</td></tr>
+            <tr><td><strong>DC Converter</strong></td><td>Steps down high voltage for auxiliary systems</td><td>Runs lights, HVAC, infotainment</td></tr>
+            <tr><td><strong>Motor Controller</strong></td><td>Regulates motor speed and torque</td><td>—</td></tr>
+            <tr><td><strong>Onboard Charger</strong></td><td>AC (grid) → DC (battery)</td><td>—</td></tr>
+            <tr><td><strong>BMS</strong></td><td>Monitors &amp; manages battery health</td><td>Battery Management System</td></tr>
+            <tr><td><strong>Transmission</strong></td><td>Power transfer to wheels</td><td>Often single-speed or direct drive</td></tr>
+            <tr><td><strong>Thermal Management</strong></td><td>Regulates battery &amp; electronics temperature</td><td>Air or liquid cooling</td></tr>
+            <tr><td><strong>Regenerative Braking</strong></td><td>Captures kinetic energy during deceleration → electrical energy</td><td>Extends range, reduces brake wear</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mnemonic">
+        <strong>BEPCTTRA</strong> – Battery, Electric motor, Power electronics, Charger, Transmission, Thermal management, Regenerative braking, Auxiliary systems.
+      </div>
+    </div>
+  </details>
+
+  <!-- 2.3 Performance -->
+  <details>
+    <summary>2.3 Essentials &amp; Performance Parameters</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Category</th><th>Parameters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Essential Parameters</strong></td>
+              <td>
+                <ul>
+                  <li><strong>Range</strong> – max distance on full charge</li>
+                  <li><strong>Battery Capacity</strong> – kWh stored</li>
+                  <li><strong>Energy Efficiency</strong> – km/kWh or miles/kWh</li>
+                  <li><strong>Charging Rate</strong> – kW (fast/slow charging)</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Performance Characteristics</strong></td>
+              <td>
+                <ul>
+                  <li><strong>Acceleration</strong> – instant torque from rest (0–100 km/h)</li>
+                  <li><strong>Top Speed</strong> – limited by motor &amp; gearing</li>
+                  <li><strong>Handling</strong> – low centre of gravity (heavy battery pack)</li>
+                  <li><strong>NVH</strong> – Noise, Vibration &amp; Harshness (quieter than ICE)</li>
+                  <li><strong>Regenerative Braking Performance</strong></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 2.4 Traction Motor -->
+  <details>
+    <summary>2.4 Traction Motor Characteristics</summary>
+    <div class="details-body">
+      <p>Electric traction motors have unique characteristics making them ideal for vehicle propulsion:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Characteristic</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Speed–Torque Relationship</strong></td><td>High torque at low speed; torque decreases as speed increases</td></tr>
+            <tr><td><strong>Torque Production</strong></td><td>Instant full torque available from 0 rpm (unlike ICE)</td></tr>
+            <tr><td><strong>Power Characteristics</strong></td><td>Constant power beyond base speed (field-weakening region)</td></tr>
+            <tr><td><strong>Efficiency</strong></td><td>90–97% electrical-to-mechanical efficiency</td></tr>
+            <tr><td><strong>Control Characteristics</strong></td><td>Precise electronic speed &amp; torque control</td></tr>
+            <tr><td><strong>Thermal Characteristics</strong></td><td>Less heat generation than ICE; requires thermal management</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Motor Types Used in EVs</h4>
+      <ul>
+        <li><span class="tag tag-blue">PMSM</span> Permanent Magnet Synchronous Motor – high efficiency, widely used</li>
+        <li><span class="tag tag-orange">Induction Motor</span> – robust, no permanent magnets, used in Tesla Model S</li>
+        <li><span class="tag tag-purple">Switched Reluctance Motor (SRM)</span> – simple, no magnets, emerging technology</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 2.5 Tractive Effort -->
+  <details>
+    <summary>2.5 Tractive Effort</summary>
+    <div class="details-body">
+      <div class="info-box">
+        <strong>Tractive Effort</strong> = Force generated by the EV propulsion system to overcome resistance and accelerate the vehicle. More specifically, it is the force transmitted between the <em>drive wheels</em> and the <em>road surface</em>.
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Concept</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Definition &amp; Calculation</strong></td><td>F<sub>tractive</sub> = Motor torque × Gear ratio / Wheel radius</td></tr>
+            <tr><td><strong>Tractive Effort Curve</strong></td><td>High TE at low speed (constant torque), decreasing at high speed (constant power)</td></tr>
+            <tr><td><strong>Resistance Forces</strong></td><td>Rolling resistance, aerodynamic drag, gradient resistance</td></tr>
+            <tr><td><strong>Net Tractive Effort</strong></td><td>TE minus all resistance forces = acceleration force</td></tr>
+            <tr><td><strong>Performance Parameters</strong></td><td>Max speed, gradeability, acceleration</td></tr>
+            <tr><td><strong>Limiting Factors</strong></td><td>Tyre–road friction, motor peak torque, battery power limit</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 2.6 Transmission -->
+  <details>
+    <summary>2.6 Transmission Requirements</summary>
+    <div class="details-body">
+      <p>Unlike ICE vehicles, EVs have <strong>simpler transmission requirements</strong> because electric motors deliver high torque across a wide speed range.</p>
+      <h4>Transmission Configurations</h4>
+      <ul>
+        <li><span class="tag tag-green">Single-Speed Transmission</span> – Most common; one fixed gear ratio</li>
+        <li><span class="tag tag-orange">Multi-Speed Transmission</span> – Improves efficiency &amp; performance across wider speed range</li>
+        <li><span class="tag tag-blue">Direct Drive</span> – Motor directly coupled to wheels; no gearbox</li>
+      </ul>
+      <h4>Transmission Design Considerations</h4>
+      <ul>
+        <li><strong>Gear Ratio Selection</strong> – Balances max speed vs. acceleration</li>
+        <li><strong>NVH (Noise, Vibration, Harshness)</strong> – EVs are quieter, so transmission noise becomes noticeable</li>
+        <li><strong>Efficiency</strong> – Mechanical power transfer efficiency 95–98%</li>
+        <li><strong>Design Integration</strong> – Motor + gearbox as a single unit</li>
+        <li><strong>Control Integration</strong> – Electronic management of torque delivery</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 2.7 Energy Consumption -->
+  <details>
+    <summary>2.7 Energy Consumption</summary>
+    <div class="details-body">
+      <h4>Energy Flow in EVs</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stage</th><th>Process</th><th>Efficiency</th></tr></thead>
+          <tbody>
+            <tr><td>Charging</td><td>AC grid → DC battery</td><td>85–95%</td></tr>
+            <tr><td>Battery Storage</td><td>Chemical energy (Li-ion)</td><td>90–95% round-trip</td></tr>
+            <tr><td>Power Electronics</td><td>DC → AC (inverter)</td><td>90–95%</td></tr>
+            <tr><td>Electric Motor</td><td>Electrical → Mechanical</td><td>90–97%</td></tr>
+            <tr><td>Transmission</td><td>Mechanical power transfer</td><td>95–98%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Factors Affecting Energy Consumption</h4>
+      <ul>
+        <li><strong>Vehicle Parameters</strong> – Mass, aerodynamic drag coefficient (Cd), rolling resistance</li>
+        <li><strong>Driving Conditions</strong> – Stop-and-go traffic vs. highway</li>
+        <li><strong>Environmental Factors</strong> – Temperature (battery performance drops in cold), altitude</li>
+        <li><strong>Driver Behaviour</strong> – Aggressive acceleration vs. eco-driving</li>
+      </ul>
+      <h4>Energy Consumption Metrics</h4>
+      <ul>
+        <li><strong>Energy Economy</strong> – Wh/km or MPGe</li>
+        <li><strong>Range Estimation</strong> – Usable battery capacity ÷ energy consumption per km</li>
+        <li><strong>Efficiency Comparison</strong> – EVs are 3–4× more efficient than ICE vehicles</li>
+      </ul>
+      <div class="hinglish">
+        EV mein energy ka safar: Grid se battery charge hoti hai (AC → DC), phir battery se inverter DC ko AC mein convert karta hai, phir motor mechanical energy deta hai, aur transmission se wheels tak pahunchti hai. Puri chain mein efficiency bahut zyada hai — isliye EV petrol gaadi se 3–4 guna zyada efficient hai!
+      </div>
+    </div>
+  </details>
+
+  <!-- 2.8 Advantages & Limitations -->
+  <details>
+    <summary>2.8 Advantages &amp; Limitations of EVs</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>Advantages ✅</th><th>Limitations ❌</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Environmental</strong></td>
+              <td>Zero tailpipe emissions, reduced urban pollution</td>
+              <td>Battery manufacturing has environmental costs; grid may use fossil fuels</td>
+            </tr>
+            <tr>
+              <td><strong>Performance</strong></td>
+              <td>Instant torque, smooth acceleration, low centre of gravity</td>
+              <td>Range anxiety; performance may degrade in cold weather</td>
+            </tr>
+            <tr>
+              <td><strong>Economic</strong></td>
+              <td>Lower fuel &amp; maintenance costs; government incentives; fewer moving parts</td>
+              <td>Higher upfront cost; battery replacement is expensive</td>
+            </tr>
+            <tr>
+              <td><strong>User Experience</strong></td>
+              <td>Home charging; quieter cabin; cabin preconditioning; advanced tech</td>
+              <td>Longer refuel time vs. petrol; range varies with conditions</td>
+            </tr>
+            <tr>
+              <td><strong>Infrastructure</strong></td>
+              <td>Expanding fast-charge networks</td>
+              <td>Rural coverage poor; apartment charging difficult; grid capacity strain</td>
+            </tr>
+            <tr>
+              <td><strong>Manufacturing</strong></td>
+              <td>Simpler drivetrain, fewer parts</td>
+              <td>Battery recycling challenges; supply chain for rare minerals</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-takeaway">
+        <ul>
+          <li>EVs are <strong>3–4× more efficient</strong> than ICE vehicles.</li>
+          <li>Battery cost has dropped &gt;80% in the last decade.</li>
+          <li>Regenerative braking recovers energy and reduces brake wear.</li>
+          <li>Traction motors deliver <em>instant torque</em> from 0 rpm.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- Quiz 2 -->
+  <div class="quiz-section" id="quiz2">
+    <h3>📝 Quiz: Electric Vehicles</h3>
+
+    <div class="quiz-q">Q1. What percentage of an EV's cost does the battery typically represent?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q4" value="a"> 5–10%</label>
+      <label><input type="radio" name="q4" value="b"> 25–40%</label>
+      <label><input type="radio" name="q4" value="c"> 50–60%</label>
+      <label><input type="radio" name="q4" value="d"> 70–80%</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q2. What does an inverter do in an EV?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q5" value="a"> Converts AC to DC for battery charging</label>
+      <label><input type="radio" name="q5" value="b"> Converts DC from battery to AC for the motor</label>
+      <label><input type="radio" name="q5" value="c"> Stores electrical energy</label>
+      <label><input type="radio" name="q5" value="d"> Controls steering</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q3. How much more efficient are EVs compared to ICE vehicles?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q6" value="a"> 1.5× more efficient</label>
+      <label><input type="radio" name="q6" value="b"> 2× more efficient</label>
+      <label><input type="radio" name="q6" value="c"> 3–4× more efficient</label>
+      <label><input type="radio" name="q6" value="d"> 10× more efficient</label>
+    </div>
+
+    <button class="quiz-check" onclick="checkQuiz('quiz2', {q4:'b',q5:'b',q6:'c'})">Check Answers</button>
+    <div class="quiz-result" id="quiz2-result"></div>
+  </div>
+
+  <!-- Flashcards 2 -->
+  <div style="margin:1rem 0;">
+    <strong>🃏 Flashcards – Electric Vehicles (hover to reveal)</strong>
+    <div class="flashcard-wrap">
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is Tractive Effort?</div>
+          <div class="flashcard-back">Force between drive wheels and road that overcomes resistance and accelerates the vehicle</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does BMS stand for?</div>
+          <div class="flashcard-back">Battery Management System — monitors &amp; manages battery health and performance</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Why do EVs have simpler transmissions?</div>
+          <div class="flashcard-back">Electric motors deliver high torque across a wide speed range, so multiple gears aren't needed</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Three types of EV traction motors</div>
+          <div class="flashcard-back">1. PMSM (Permanent Magnet Synchronous)<br>2. Induction Motor<br>3. Switched Reluctance Motor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 3 – JET PROPULSION
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="jet-propulsion">🚀 3. Jet Propulsion</h2>
+
+  <!-- 3.1 What is Jet Propulsion -->
+  <details open>
+    <summary>3.1 What is Jet Propulsion?</summary>
+    <div class="details-body">
+      <div class="info-box">
+        <strong>Jet Propulsion</strong>: Propulsion of a body by the <em>discharge of fluid</em>. A jet engine propels bodies such as rockets, ships, and aircraft.
+      </div>
+      <ul>
+        <li>Based on <strong>Newton's 2nd and 3rd Laws of Motion</strong>.</li>
+        <li>A jet propulsion engine is a <em>reaction engine</em> — it discharges a fast-moving fluid jet to generate thrust in the <strong>opposite direction</strong>.</li>
+        <li><strong>Thrust</strong> = the force that moves the body forward using propulsive devices.</li>
+        <li>In a jet propulsion engine, the gas turbine <em>drives the compressor and auxiliary equipment</em> — not directly produces propulsive power.</li>
+        <li><strong>Propeller</strong>: smaller acceleration to a large mass of air.</li>
+        <li><strong>Jet engine</strong>: larger acceleration to a smaller mass of air.</li>
+      </ul>
+      <div class="mnemonic">
+        Newton's 3rd Law: "For every action (hot gas out the back), there is an equal &amp; opposite reaction (plane goes forward)." 🎈 Like releasing a balloon — air shoots out, balloon flies!
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.2 Classification -->
+  <details>
+    <summary>3.2 Classification of Propulsive Engines</summary>
+    <div class="details-body">
+      <div class="diagram">
+  PROPULSIVE ENGINES
+  ├─ Air Breathing Engines (ABE)
+  │   ├─ I.C. Engine Driven (propeller)
+  │   ├─ Ramming Effect (Ramjet, Pulsejet)
+  │   └─ Gas Turbine Propulsive System
+  │       ├─ Turbojet
+  │       ├─ Turbojet with Afterburner
+  │       ├─ Turboprop
+  │       └─ Turbofan
+  └─ Non-Air Breathing Engines (Rockets)
+      ├─ Solid Propellant Rocket
+      └─ Liquid Propellant Rocket</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Air Breathing?</th><th>Moving Parts?</th><th>Speed Range</th></tr></thead>
+          <tbody>
+            <tr><td>I.C. Engine + Propeller</td><td>Yes</td><td>Yes</td><td>&lt; 700 km/h</td></tr>
+            <tr><td>Ramjet</td><td>Yes</td><td><strong>No</strong></td><td>Supersonic</td></tr>
+            <tr><td>Pulsejet</td><td>Yes</td><td>None (usually)</td><td>Low-moderate</td></tr>
+            <tr><td>Turbojet</td><td>Yes</td><td>Yes</td><td>&gt; 550 km/h</td></tr>
+            <tr><td>Turboprop</td><td>Yes</td><td>Yes</td><td>Up to 800 km/h</td></tr>
+            <tr><td>Turbofan</td><td>Yes</td><td>Yes</td><td>Subsonic/transonic</td></tr>
+            <tr><td>Rocket (Solid)</td><td><strong>No</strong></td><td>No</td><td>Very high / vacuum</td></tr>
+            <tr><td>Rocket (Liquid)</td><td><strong>No</strong></td><td>Pumps/valves</td><td>Very high / vacuum</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.3 I.C. Engine Propulsive System -->
+  <details>
+    <summary>3.3 I.C. Engine Driven Propulsive System</summary>
+    <div class="details-body">
+      <ul>
+        <li>Air-breathing engine — uses air as working fluid.</li>
+        <li>Net power drives a <strong>propeller</strong> to create thrust.</li>
+        <li>Uses air-cooled, multi-cylinder, radial I.C. engine.</li>
+        <li>Speed limit: <strong>700 km/h</strong>.</li>
+        <li>Used for short-range flights and widely used in <strong>helicopters</strong>.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 3.4 Ramjet -->
+  <details>
+    <summary>3.4 Ramjet Engine</summary>
+    <div class="details-body">
+      <div class="info-box">
+        Ramjet is a <strong>steady combustion / continuous flow</strong> air-breathing engine. It is the <em>simplest</em> of all air-breathing engines.
+      </div>
+      <h4>Construction</h4>
+      <ul>
+        <li>Consists of: supersonic diffuser → subsonic diffuser → combustion chamber (with fuel injector) → discharge nozzle.</li>
+        <li><strong>No moving parts.</strong></li>
+        <li>Combustion occurs at <em>subsonic</em> speed of airflow.</li>
+        <li>Used in <strong>guided-missile systems</strong> (defense sector).</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Advantages</th><th>Disadvantages</th></tr></thead>
+          <tbody>
+            <tr><td>Simple construction — no moving parts (no compressor/turbine)</td><td>Very high fuel consumption at low/moderate speeds</td></tr>
+            <tr><td>Very cheap, almost no maintenance</td><td>Cannot start on its own — needs external launch device</td></tr>
+            <tr><td>Greater thrust/weight than any propulsion engine at supersonic speed (except rocket)</td><td>Requires flame holder to stabilize combustion</td></tr>
+            <tr><td>Low specific fuel consumption at high speed &amp; altitude vs. turbojet</td><td>—</td></tr>
+            <tr><td>Can use any liquid fuel or solid/nuclear fuels</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.5 Pulsejet -->
+  <details>
+    <summary>3.5 Pulsejet Engine</summary>
+    <div class="details-body">
+      <div class="info-box">
+        A <strong>Pulsejet</strong> is an engine that works on combustion in <em>pulses</em> (phases). Usually built with no moving parts.
+      </div>
+      <h4>Cycle</h4>
+      <ol>
+        <li>Air flows through intake (1) and mixes with fuel (2).</li>
+        <li>Valve (3) closes; ignited fuel-air mix (4) propels exhaust.</li>
+      </ol>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Advantages</th><th>Disadvantages</th></tr></thead>
+          <tbody>
+            <tr><td>Simple construction, no moving parts — light, carries high payload</td><td>Very high noise and severe vibrations (intermittent pulses)</td></tr>
+            <tr><td>Sufficient thrust at low speeds</td><td>High fuel consumption, very low thermal efficiency</td></tr>
+            <tr><td>Suitable for bombers and target missiles (unmanned)</td><td>Useful only 30–60 minutes flight life</td></tr>
+            <tr><td>—</td><td>Affected by atmospheric air density → limited altitude</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.6 Turbojet -->
+  <details>
+    <summary>3.6 Turbojet Engine (Jet Propulsion context)</summary>
+    <div class="details-body">
+      <ul>
+        <li>Air-breathing and gas turbine propulsive system.</li>
+        <li>Thrust produced by acceleration of hot combustion gases through the <strong>exhaust nozzle</strong>.</li>
+        <li>A <em>reaction engine</em>.</li>
+        <li>Thrust can be substantially increased by using an <strong>afterburner</strong>.</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Advantages</th><th>Disadvantages</th></tr></thead>
+          <tbody>
+            <tr><td>Simple construction vs. I.C. engine for same power</td><td>Very poor fuel economy at low flight speeds</td></tr>
+            <tr><td>Weight-power ratio = ¼ that of I.C. engine system</td><td>Inefficient below 550 km/h</td></tr>
+            <tr><td>Speed not limited by propeller</td><td>Not economical for short distances</td></tr>
+            <tr><td>Thrust not limited</td><td>Longer runway needed</td></tr>
+            <tr><td>Less maintenance</td><td>High capital cost</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.7 Turboprop -->
+  <details>
+    <summary>3.7 Turboprop Engine</summary>
+    <div class="details-body">
+      <div class="info-box">
+        A <strong>Turboprop</strong> = jet engine attached to a propeller. Intermediate between turbojet and I.C. engine + propeller. Also called <em>propjet</em>.
+      </div>
+      <ul>
+        <li>Uses increased mass flow of air for better fuel economy.</li>
+        <li>Modern turboprops use smaller-diameter, more-bladed propellers for efficiency at higher speeds.</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Advantages</th><th>Disadvantages</th></tr></thead>
+          <tbody>
+            <tr><td>Operates at any speed up to 800 km/h</td><td>Propulsive efficiency drops drastically at high speed</td></tr>
+            <tr><td>High thrust at low speed → short runway takeoff</td><td>Suitable only for short range, low altitude, low speed</td></tr>
+            <tr><td>Thrust reversal easy by varying blade angle</td><td>Requires reduction gear → added cost &amp; weight</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 3.8 Turbofan -->
+  <details>
+    <summary>3.8 Turbofan Engine</summary>
+    <div class="details-body">
+      <p>
+        The <strong>bypass system</strong> increases thrust without increasing fuel consumption by:
+      </p>
+      <ul>
+        <li>Increasing total air-mass flow.</li>
+        <li>Reducing exhaust velocity.</li>
+        <li>Using the same total energy supply.</li>
+      </ul>
+      <p>Most modern commercial jet airliners use high-bypass turbofan engines for fuel efficiency.</p>
+    </div>
+  </details>
+
+  <!-- 3.9 Rocket Engines -->
+  <details>
+    <summary>3.9 Rocket Engines (Non-Air Breathing)</summary>
+    <div class="details-body">
+      <div class="info-box">
+        Rocket engines carry their own <strong>oxidizer</strong> — they do not need atmospheric air. Hence they can operate in <em>vacuum</em> (space).
+      </div>
+      <h4>Types</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Fuel &amp; Oxidizer</th><th>Complexity</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Solid Propellant</strong></td><td>Pre-mixed solid fuel+oxidizer</td><td>Simple (no valves/pumps)</td><td>Earliest rockets (gunpowder). Case = combustion chamber.</td></tr>
+            <tr><td><strong>Liquid Propellant</strong></td><td>Alcohol (fuel) + Liquid O₂ (oxidizer)</td><td>Complex (pumps, valves, sensors)</td><td>High performance; controllable thrust</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Rocket Thrust Formula</h4>
+      <div class="diagram">
+  Thrust = Momentum Thrust + Pressure Thrust
+  T = (ṁ_ox + ṁ_f) × V_e  +  (P_e - P_a) × A_e
+
+  Where:
+    ṁ_ox = mass flow rate of oxidizer (kg/s)
+    ṁ_f  = mass flow rate of fuel (kg/s)
+    V_e  = effective exit/jet velocity (m/s)
+    P_e  = exhaust jet pressure (Pa)
+    P_a  = atmospheric pressure (Pa)
+    A_e  = exit jet area (m²)
+
+  For a rocket (oxidizer carried onboard):
+    Entry velocity of oxidizer = 0
+    T = ṁ_prop × C   (where C = effective jet velocity)</div>
+
+      <h4>Key Performance Parameters</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parameter</th><th>Definition</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Thrust</strong></td><td>Momentum thrust + Pressure thrust</td></tr>
+            <tr><td><strong>Thrust Power (TP)</strong></td><td>Power developed from the thrust of the engine = T × V_aircraft</td></tr>
+            <tr><td><strong>Specific Impulse (Isp)</strong></td><td>Thrust ÷ Weight flow of propellant</td></tr>
+            <tr><td><strong>Propulsive Power</strong></td><td>Thrust Power + KE loss in exhaust</td></tr>
+            <tr><td><strong>Propulsive Efficiency (η_p)</strong></td><td>Thrust Power ÷ Propulsive Power</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rocket Advantages</th><th>Rocket Disadvantages</th></tr></thead>
+          <tbody>
+            <tr><td>Self-contained — does not depend on atmosphere</td><td>Requires large amounts of propellant (fuel + oxidizer)</td></tr>
+            <tr><td>Thrust increases with altitude; constant after certain altitude</td><td>Both tanks inside rocket body → very risky</td></tr>
+            <tr><td>Highly efficient at very high speed (Mach &gt; 5)</td><td>Extremely noisy</td></tr>
+            <tr><td>High thrust-to-weight ratio (&gt; 100)</td><td>Extreme thermal stresses in combustion chamber</td></tr>
+            <tr><td>Can operate in vacuum</td><td>Very low specific impulse relative to complexity</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="hinglish">
+        Rocket engine ki khaas baat: Yeh atmosphere par depend nahi karta — apna khud ka oxygen (oxidizer) saath le jaata hai. Isliye space mein bhi kaam karta hai. Mach 5 se upar bahut efficient ho jaata hai. Lekin propellant bahut zyada chahiye aur yeh bahut risky hota hai.
+      </div>
+    </div>
+  </details>
+
+  <!-- Quiz 3 -->
+  <div class="quiz-section" id="quiz3">
+    <h3>📝 Quiz: Jet Propulsion</h3>
+
+    <div class="quiz-q">Q1. Which jet engine has NO moving parts?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q7" value="a"> Turbojet</label>
+      <label><input type="radio" name="q7" value="b"> Ramjet</label>
+      <label><input type="radio" name="q7" value="c"> Turboprop</label>
+      <label><input type="radio" name="q7" value="d"> I.C. Engine system</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q2. What is specific impulse of a rocket?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q8" value="a"> Mass of fuel per second</label>
+      <label><input type="radio" name="q8" value="b"> Ratio of thrust to weight flow of propellant</label>
+      <label><input type="radio" name="q8" value="c"> Exit velocity of gases</label>
+      <label><input type="radio" name="q8" value="d"> Ratio of propulsive power to thrust power</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q3. Why can a rocket operate in vacuum?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q9" value="a"> It uses solar energy</label>
+      <label><input type="radio" name="q9" value="b"> It is lighter than air</label>
+      <label><input type="radio" name="q9" value="c"> It carries its own oxidizer and does not need atmospheric air</label>
+      <label><input type="radio" name="q9" value="d"> It uses electromagnetic propulsion</label>
+    </div>
+
+    <button class="quiz-check" onclick="checkQuiz('quiz3', {q7:'b',q8:'b',q9:'c'})">Check Answers</button>
+    <div class="quiz-result" id="quiz3-result"></div>
+  </div>
+
+  <!-- Flashcards 3 -->
+  <div style="margin:1rem 0;">
+    <strong>🃏 Flashcards – Jet Propulsion (hover to reveal)</strong>
+    <div class="flashcard-wrap">
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What law governs jet propulsion?</div>
+          <div class="flashcard-back">Newton's 2nd and 3rd Laws of Motion (action → equal &amp; opposite reaction)</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Ramjet limitation at low speed</div>
+          <div class="flashcard-back">Cannot start on its own; needs external launcher; very high fuel consumption at low speed</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Turboprop is called?</div>
+          <div class="flashcard-back">Propjet — hybrid between turbojet and propeller-driven I.C. engine</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Turbofan objective</div>
+          <div class="flashcard-back">Increase thrust WITHOUT increasing fuel consumption (bypass system: ↑ air mass flow, ↓ exhaust velocity)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 4 – TURBOJET ENGINES (DETAILED)
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="turbojet">🛩️ 4. Turbojet Engines (Detailed Study)</h2>
+
+  <!-- 4.1 Introduction -->
+  <details open>
+    <summary>4.1 Introduction</summary>
+    <div class="details-body">
+      <ul>
+        <li>Turbojets are the <strong>oldest kind</strong> of general-purpose jet engines.</li>
+        <li>They are <strong>rotary engines</strong> that extract energy from combustion gas flow.</li>
+        <li>Produce thrust by <em>increasing the velocity of air</em> flowing through the engine.</li>
+        <li>Operate on Newton's 3rd Law: "For every action there is an equal and opposite reaction."</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 4.2 Components -->
+  <details>
+    <summary>4.2 Primary Components</summary>
+    <div class="details-body">
+      <div class="diagram">
+  TURBOJET ENGINE – COMPONENT FLOW
+  ┌──────┐   ┌───────────┐   ┌────────────────────┐   ┌─────────┐   ┌────────┐
+  │ AIR  │→  │ COMPRESSOR│→  │ COMBUSTION CHAMBER │→  │ TURBINE │→  │ NOZZLE │→ JET
+  │INTAKE│   │(Axial/    │   │  (fuel + ignition) │   │(drives  │   │(exhaust│
+  │ FAN  │   │Centrifugal│   │                    │   │compressor│  │plume)  │
+  └──────┘   └───────────┘   └────────────────────┘   └─────────┘   └────────┘
+                ↑___________________________________|
+                         (shaft coupling)</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Component</th><th>Function</th><th>Key Detail</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Air Intake / Fan</strong></td><td>Draws large amounts of air into engine</td><td>Cylindrical or conical design; shape varies by aircraft</td></tr>
+            <tr><td><strong>Compressor</strong></td><td>Compresses air → higher pressure &amp; temperature</td><td>Types: Axial Flow &amp; Centrifugal. Driven by turbine.</td></tr>
+            <tr><td><strong>Combustion Chamber</strong></td><td>Mixes fuel with compressed air; ignites mixture</td><td>Form of cans with fuel injector &amp; flame holder. Temperature rises dramatically.</td></tr>
+            <tr><td><strong>Turbine</strong></td><td>Extracts energy from hot gas to drive compressor</td><td>~2/3 of all power generated goes to the compressor. Made of high-temp alloys (Inconel).</td></tr>
+            <tr><td><strong>Nozzle</strong></td><td>Expands gases to atmosphere → high velocity jet</td><td>Convergent nozzle narrows to a throat. Produces thrust.</td></tr>
+            <tr><td><strong>Mixer</strong></td><td>Mixes bypass air with core exhaust (in turbofan)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 4.3 Working -->
+  <details>
+    <summary>4.3 Working of a Turbojet Engine</summary>
+    <div class="details-body">
+      <ol>
+        <li><strong>Air intake</strong>: Air drawn into rotating compressor via intake.</li>
+        <li><strong>Compression</strong>: Air compressed to higher pressure (also raises temperature).</li>
+        <li><strong>Combustion</strong>: Fuel mixed with compressed air; ignited by flame in eddy of flame holder. Temperature rises dramatically.</li>
+        <li><strong>Expansion through Turbine</strong>: Hot combustion gases expand through turbine. ~2/3 of power drives the compressor.</li>
+        <li><strong>Exhaust Nozzle</strong>: Remaining gas expands to ambient pressure, producing high-velocity jet → <strong>thrust</strong>.</li>
+      </ol>
+      <div class="mnemonic">
+        <strong>ACTEN</strong> – Air intake → Compress → burn (combusT) → Expand through turbine → Nozzle (exhaust).
+      </div>
+    </div>
+  </details>
+
+  <!-- 4.4 Afterburner -->
+  <details>
+    <summary>4.4 Afterburner (Reheat)</summary>
+    <div class="details-body">
+      <div class="info-box">
+        An <strong>afterburner</strong> (or "reheat jet-pipe") is added to the rear of the jet engine. It sprays fuel directly into the hot exhaust where it ignites, <strong>significantly boosting thrust</strong>.
+      </div>
+      <ul>
+        <li>Drawback: <em>very high fuel consumption rate</em>.</li>
+        <li>Used by military fighter jets for short bursts of extra thrust.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 4.5 Thrust Reversers -->
+  <details>
+    <summary>4.5 Thrust Reversers</summary>
+    <div class="details-body">
+      <div class="info-box">
+        A <strong>thrust reverser</strong> is a pair of clamshell doors at the rear of the engine. When deployed, they divert thrust to help <em>slow an aircraft upon landing</em>.
+      </div>
+      <ul>
+        <li><strong>Accidental deployment during flight</strong> is extremely dangerous — can cause loss of control and aircraft destruction.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- 4.6 Materials -->
+  <details>
+    <summary>4.6 Materials Used in Turbojet Engines</summary>
+    <div class="details-body">
+      <h4>Operating Challenges</h4>
+      <ul>
+        <li>Thousands of operating hours at temperatures up to <strong>1,100°C (2,000°F)</strong></li>
+        <li>High thermal stresses (rapid temperature changes &amp; gradients)</li>
+        <li>High mechanical stresses (high RPM, aerodynamic forces)</li>
+        <li>Low- and high-frequency vibration loading</li>
+        <li>Must resist: Oxidation, Corrosion, Creep, Fatigue (HCF &amp; LCF), Stress rupture</li>
+      </ul>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Engine Section</th><th>Requirements</th><th>Materials Used</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Cold Sections</strong><br>(Inlet, Fan, Compressor, Casing)</td>
+              <td>High strength, high stiffness, low weight</td>
+              <td>Titanium Alloys (Ti-6Al-4V), Aluminum Alloys, Polymer Composites, Titanium Intermetallics</td>
+            </tr>
+            <tr>
+              <td><strong>Hot Sections</strong><br>(Combustor, Turbine, Outlet)</td>
+              <td>High strength at high temp (850°C–1100°C), corrosion &amp; oxidation resistance, low weight</td>
+              <td>Nickel (or Cobalt) based Superalloys — used up to 0.8 T<sub>m</sub> (melt temp); specific gravity ~8.8; &gt;50% of engine weight</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Future Material Goals</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Goal</th><th>Benefit</th></tr></thead>
+          <tbody>
+            <tr><td>Higher Operating Temperatures</td><td rowspan="5">Better Performance + Lower Life Cycle Costs</td></tr>
+            <tr><td>Higher Rotational Speeds</td></tr>
+            <tr><td>Lower Weight Components</td></tr>
+            <tr><td>Longer Operating Lifetime</td></tr>
+            <tr><td>Decreased Failure Occurrence</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 4.7 Merits / Demerits -->
+  <details>
+    <summary>4.7 Merits &amp; Demerits of Turbojet Engines</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Merits ✅</th><th>Demerits ❌</th></tr></thead>
+          <tbody>
+            <tr><td>Very high power-to-weight ratio</td><td>Higher cost than reciprocating engines</td></tr>
+            <tr><td>Compact for same power rating</td><td>Longer startup time than reciprocating engines</td></tr>
+            <tr><td>Fewer moving parts than reciprocating engines</td><td>Less responsive to changes in power demand</td></tr>
+            <tr><td>High operation speeds</td><td>—</td></tr>
+            <tr><td>Low lubricating oil cost &amp; consumption</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- 4.8 Applications -->
+  <details>
+    <summary>4.8 Applications of Turbojet Engines</summary>
+    <div class="details-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Application</th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Messerschmitt Me 262</strong></td><td>World's first operational jet-powered fighter aircraft. Outran Allied counterparts by ~100 mph. Still untouchable when properly flown.</td></tr>
+            <tr><td><strong>Concorde (Olympus 593)</strong></td><td>Used turbojet (not turbofan) because small cross-section &amp; high exhaust speed is ideal for Mach 2 operation.</td></tr>
+            <tr><td><strong>Thrust 2 (Land Speed Record)</strong></td><td>In 1983, reached 650.88 mph (1,047 km/h). Powered by a single Rolls-Royce Avon jet engine from an English Electric Lightning.</td></tr>
+            <tr><td><strong>Space Shuttles</strong></td><td>Higher safety, easier abort, glide-back to Earth, flexible missions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- Quiz 4 -->
+  <div class="quiz-section" id="quiz4">
+    <h3>📝 Quiz: Turbojet Engines</h3>
+
+    <div class="quiz-q">Q1. What fraction of power generated by burning fuel goes to driving the compressor?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q10" value="a"> One-third (~33%)</label>
+      <label><input type="radio" name="q10" value="b"> Half (50%)</label>
+      <label><input type="radio" name="q10" value="c"> Two-thirds (~67%)</label>
+      <label><input type="radio" name="q10" value="d"> Three-quarters (75%)</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q2. What material family is used for hot sections of turbojet engines?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q11" value="a"> Titanium alloys</label>
+      <label><input type="radio" name="q11" value="b"> Aluminum alloys</label>
+      <label><input type="radio" name="q11" value="c"> Nickel (or Cobalt) based superalloys</label>
+      <label><input type="radio" name="q11" value="d"> Polymer composites</label>
+    </div>
+
+    <div class="quiz-q" style="margin-top:.8rem;">Q3. What is an afterburner's main drawback?</div>
+    <div class="quiz-opts">
+      <label><input type="radio" name="q12" value="a"> Reduces thrust</label>
+      <label><input type="radio" name="q12" value="b"> Very high fuel consumption rate</label>
+      <label><input type="radio" name="q12" value="c"> Adds excessive weight to the engine</label>
+      <label><input type="radio" name="q12" value="d"> Cannot be used at high altitudes</label>
+    </div>
+
+    <button class="quiz-check" onclick="checkQuiz('quiz4', {q10:'c',q11:'c',q12:'b'})">Check Answers</button>
+    <div class="quiz-result" id="quiz4-result"></div>
+  </div>
+
+  <!-- Flashcards 4 -->
+  <div style="margin:1rem 0;">
+    <strong>🃏 Flashcards – Turbojet Engines (hover to reveal)</strong>
+    <div class="flashcard-wrap">
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">World's first operational jet fighter?</div>
+          <div class="flashcard-back">Messerschmitt Me 262 — outran Allied aircraft by ~100 mph</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Two types of compressors in turbojet?</div>
+          <div class="flashcard-back">1. Axial Flow Compressor<br>2. Centrifugal Compressor</div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Operating temperature of turbine alloys</div>
+          <div class="flashcard-back">850°C – 1100°C (1600°F – 2000°F). Nickel superalloys used up to 0.8 T<sub>m</sub></div>
+        </div>
+      </div>
+      <div class="flashcard" onclick="this.classList.toggle('flipped')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">ACTEN mnemonic for turbojet</div>
+          <div class="flashcard-back">Air intake → Compress → combusT → Expand (turbine) → Nozzle (exhaust)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 5 – QUESTION BANK
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="qbank">📋 5. Question Bank – Unit IV</h2>
+
+  <div class="card">
+    <p style="margin-bottom:.6rem; color: var(--muted); font-size:.9rem;">All questions from the official Unit IV Question Bank. Click any question to jump to the relevant section.</p>
+
+    <h4>🌬️ Aerodynamics</h4>
+    <ol>
+      <li>What is aerodynamics? Explain its significance in engineering applications. → <a href="#aerodynamics">§1</a></li>
+      <li>Why is the study of aerodynamics important in mechanical and aerospace engineering? → <a href="#aerodynamics">§1</a></li>
+      <li>Differentiate between internal and external aerodynamics with suitable examples. → <a href="#aerodynamics">§1.3</a></li>
+      <li>Describe the basic geometry of an aerofoil and explain its significance. → <a href="#aerodynamics">§1.5</a></li>
+      <li>Explain the basic working principle of a turbojet engine. → <a href="#turbojet">§4.3</a></li>
+      <li>What are the key components of a gas turbine engine? Explain their functions. → <a href="#turbojet">§4.2</a></li>
+    </ol>
+
+    <h4 style="margin-top:1rem;">⚡ Electric Vehicles</h4>
+    <ol start="7">
+      <li>What is an electric vehicle (EV)? Explain its significance in modern transportation. → <a href="#electric-vehicles">§2.1</a></li>
+      <li>Describe the basic architecture of an EV with a block diagram. → <a href="#electric-vehicles">§2.2</a></li>
+      <li>What are the key differences between ICE vehicles and electric vehicles? → <a href="#electric-vehicles">§2.8</a></li>
+      <li>What are the essential components of an EV? Explain their functions. → <a href="#electric-vehicles">§2.2</a></li>
+      <li>Discuss the factors affecting the performance of electric vehicles. → <a href="#electric-vehicles">§2.3</a></li>
+      <li>What are the different types of EV powertrains, and how do they affect performance? → <a href="#electric-vehicles">§2.6</a></li>
+      <li>What is a traction motor? List different types of traction motors used in EVs. → <a href="#electric-vehicles">§2.4</a></li>
+      <li>Define tractive effort and explain its significance in vehicle motion. → <a href="#electric-vehicles">§2.5</a></li>
+      <li>What factors influence the tractive effort required by an EV? → <a href="#electric-vehicles">§2.5</a></li>
+      <li>How does regenerative braking contribute to energy efficiency in EVs? → <a href="#electric-vehicles">§2.2</a></li>
+      <li>How does aerodynamics impact the performance and efficiency of an EV? → <a href="#aerodynamics">§1.4</a></li>
+      <li>What are the strategies used to improve energy efficiency of EVs? → <a href="#electric-vehicles">§2.7</a></li>
+      <li>Discuss the environmental benefits of EVs over conventional fuel-based vehicles. → <a href="#electric-vehicles">§2.8</a></li>
+      <li>What are the major limitations and challenges in widespread adoption of EVs? → <a href="#electric-vehicles">§2.8</a></li>
+    </ol>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION 6 – QUICK REVISION SHEET
+  ════════════════════════════════════════════════════════ -->
+  <h2 class="section-title" id="revision">⚡ 6. Quick Revision Sheet</h2>
+
+  <div class="revision-grid">
+    <div class="revision-card">
+      <h4>🌬️ Aerodynamics – Core</h4>
+      <ul>
+        <li>4 Forces: Lift ↑, Weight ↓, Thrust →, Drag ←</li>
+        <li>Fly: Lift &gt; Weight &amp; Thrust &gt; Drag</li>
+        <li>Bernoulli: curved top → faster air → lower pressure → lift</li>
+        <li>External: forces on bodies; Internal: flow inside ducts</li>
+        <li>Chord = LE to TE straight line</li>
+      </ul>
+    </div>
+
+    <div class="revision-card">
+      <h4>⚡ EV – Architecture</h4>
+      <ul>
+        <li>Battery Pack: 25–40% of vehicle cost (Li-ion)</li>
+        <li>Inverter: DC → AC for motor</li>
+        <li>BMS: monitors battery health</li>
+        <li>Regen braking: KE → electrical energy</li>
+        <li>EV = 3–4× more efficient than ICE</li>
+      </ul>
+    </div>
+
+    <div class="revision-card">
+      <h4>⚡ EV – Traction &amp; Transmission</h4>
+      <ul>
+        <li>Instant full torque at 0 rpm</li>
+        <li>Motor types: PMSM, Induction, SRM</li>
+        <li>Tractive effort = motor torque × gear ratio / wheel radius</li>
+        <li>Transmission: single-speed / direct drive (simpler than ICE)</li>
+        <li>Energy efficiency: 90–97% (motor)</li>
+      </ul>
+    </div>
+
+    <div class="revision-card">
+      <h4>🚀 Jet Propulsion – Types</h4>
+      <ul>
+        <li>Ramjet: no moving parts; needs launcher; supersonic</li>
+        <li>Pulsejet: pulsed combustion; noisy; short life (30–60 min)</li>
+        <li>Turbojet: reaction engine; &gt;550 km/h</li>
+        <li>Turboprop: propjet; up to 800 km/h; short runways</li>
+        <li>Turbofan: bypass → more thrust, same fuel</li>
+        <li>Rocket: carries own O₂; operates in vacuum; Mach &gt;5</li>
+      </ul>
+    </div>
+
+    <div class="revision-card">
+      <h4>🛩️ Turbojet – Key Numbers</h4>
+      <ul>
+        <li>~2/3 of fuel energy → drives compressor</li>
+        <li>Max operating temp: up to 1,100°C</li>
+        <li>Cold section: Ti alloys (Ti-6Al-4V)</li>
+        <li>Hot section: Ni superalloys (&gt;50% engine weight)</li>
+        <li>ACTEN: Air → Compress → combusT → Expand → Nozzle</li>
+      </ul>
+    </div>
+
+    <div class="revision-card">
+      <h4>🧠 Mnemonics</h4>
+      <ul>
+        <li><strong>ADAG</strong>: Aerodynamics = About Drag And (lift &amp;) Gravity</li>
+        <li><strong>BEPCTTRA</strong>: EV components (Battery, Electric motor, Power electronics, Charger, Transmission, Thermal, Regen braking, Aux)</li>
+        <li><strong>ACTEN</strong>: Turbojet flow steps</li>
+        <li>Newton's 3rd → jet action = rocket/plane thrust reaction</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Key Formula Summary -->
+  <details>
+    <summary>📐 Key Formulae Summary</summary>
+    <div class="details-body">
+      <div class="diagram">
+  AERODYNAMICS
+  ─────────────────────────────────────────────────────────────
+  Bernoulli:  P + ½ρv² = constant
+  Lift:       L = ½ρv²·CL·A   (CL = lift coefficient)
+  Drag:       D = ½ρv²·CD·A   (CD = drag coefficient)
+
+  EV / TRACTION
+  ─────────────────────────────────────────────────────────────
+  Tractive Effort:  F_T = T_motor × G_r / r_wheel
+  Net Force:        F_net = F_T − (Rolling Resistance + Aero Drag + Grade)
+  Energy Economy:   E = Battery capacity (kWh) / Consumption (kWh/km)
+
+  JET PROPULSION / ROCKET
+  ─────────────────────────────────────────────────────────────
+  Thrust:           T = ṁ·V_e + (P_e − P_a)·A_e
+  Specific Impulse: I_sp = T / (ṁ_prop × g₀)
+  Propulsive Eff.:  η_p = Thrust Power / Propulsive Power</div>
+    </div>
+  </details>
+
+  <!-- References -->
+  <div class="card" style="margin-top:2rem; background:#f8f9fa; border-color:#bdc1c6;">
+    <h4 style="color:var(--muted);">📚 References</h4>
+    <ul style="color:var(--muted); font-size:.9rem;">
+      <li>Basics of Mechanical Engineering – Punia, Dhanpat Rai Publisher</li>
+      <li>Basics of Mechanical Engineering – R.K. Rajput, Laxmi Publisher</li>
+      <li>Basics of Mechanical Engineering – D.S. Kumar, Kataria Publisher</li>
+      <li>IC Engines – V. Ganesan, Tata McGraw Hill Publisher</li>
+      <li>Introduction to Ergonomics – R.S. Bridger, CRC Press</li>
+      <li>Fundamentals of Theory, Design and Operation of Jet Engines – Klaus Hunecke</li>
+      <li>Aircraft Gas Turbine Engines – J. Vennard</li>
+      <li>Mechanical Metallurgy – George E. Dieter</li>
+    </ul>
+  </div>
+
+  <p style="text-align:center; color:var(--muted); margin-top:2rem; font-size:.85rem;">
+    © Unit IV Interactive Notes &nbsp;|&nbsp; Created from official course resources &nbsp;|&nbsp; Best viewed in a modern browser
+  </p>
+
+</div><!-- /.container -->
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  /* Quiz checker */
+  function checkQuiz(quizId, answers) {
+    var correct = 0, total = Object.keys(answers).length;
+    for (var name in answers) {
+      var selected = document.querySelector('input[name="' + name + '"]:checked');
+      if (selected && selected.value === answers[name]) {
+        correct++;
+      }
+    }
+    var result = document.getElementById(quizId + '-result');
+    if (correct === total) {
+      result.textContent = '🎉 Perfect! ' + correct + '/' + total + ' correct!';
+      result.style.color = '#1e8e3e';
+    } else {
+      result.textContent = '📖 ' + correct + '/' + total + ' correct. Review the section and try again!';
+      result.style.color = '#d93025';
+    }
+  }
+
+  /* Smooth scroll offset for sticky nav */
+  document.querySelectorAll('nav a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        var offset = 60;
+        var pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: pos, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
